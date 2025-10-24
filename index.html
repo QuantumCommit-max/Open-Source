@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Website Redirect</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        a {
+            font-size: 20px;
+            color: #007BFF;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 2px solid #007BFF;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        a:hover {
+            background-color: #007BFF;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1>Click the link below to visit a random website:</h1>
+    <a href="#" id="randomLink" target="_blank">Go to a Random Website</a>
+
+    <script>
+        const websites = [
+            'https://www.theuselessweb.com',
+            'https://pointerpointer.com',
+            'https://www.random-ize.com/random-website/',
+            'https://clicktheredbutton.com'
+        ];
+
+        document.getElementById('randomLink').addEventListener('click', function(event) {
+            event.preventDefault();
+            const randomIndex = Math.floor(Math.random() * websites.length);
+            window.open(websites[randomIndex], '_blank');
+        });
+    </script>
+</body>
+</html>
