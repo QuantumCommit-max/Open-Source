@@ -6,41 +6,93 @@
     <title>Random Website Redirect</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             text-align: center;
-            margin-top: 50px;
+            margin-top: 100px;
+            background: linear-gradient(to right, #f0f8ff, #d0e6ff);
+            color: #333;
+            transition: background 0.5s;
         }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+
         a {
             font-size: 20px;
             color: #007BFF;
             text-decoration: none;
-            padding: 10px 20px;
+            padding: 15px 30px;
             border: 2px solid #007BFF;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            cursor: pointer;
         }
+
         a:hover {
             background-color: #007BFF;
             color: white;
+            transform: scale(1.1);
+        }
+
+        #message {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-style: italic;
+            color: #555;
+            min-height: 1.5em;
+            transition: color 0.3s;
+        }
+
+        /* Button flash animation */
+        @keyframes flash {
+            0% { background-color: #007BFF; color: white; }
+            50% { background-color: #00BFFF; color: #fff; }
+            100% { background-color: #007BFF; color: white; }
+        }
+
+        a.flash {
+            animation: flash 0.5s ease-in-out;
         }
     </style>
 </head>
 <body>
-    <h1>Click the link below to visit a random website:</h1>
+    <h1>Click below to visit a random website!</h1>
     <a href="#" id="randomLink" target="_blank">Go to a Random Website</a>
+    <div id="message"></div>
 
     <script>
         const websites = [
-            'https://www.theuselessweb.com',
-            'https://pointerpointer.com',
-            'https://www.random-ize.com/random-website/',
-            'https://clicktheredbutton.com'
+            { name: 'The Useless Web', url: 'https://www.theuselessweb.com' },
+            { name: 'Pointer Pointer', url: 'https://pointerpointer.com' },
+            { name: 'Randomize Website', url: 'https://www.random-ize.com/random-website/' },
+            { name: 'Click The Red Button', url: 'https://clicktheredbutton.com' }
         ];
 
-        document.getElementById('randomLink').addEventListener('click', function(event) {
+        const link = document.getElementById('randomLink');
+        const message = document.getElementById('message');
+
+        link.addEventListener('click', function(event) {
             event.preventDefault();
+
+            // Flash button animation
+            link.classList.add('flash');
+            setTimeout(() => link.classList.remove('flash'), 500);
+
+            // Pick a random website
             const randomIndex = Math.floor(Math.random() * websites.length);
-            window.open(websites[randomIndex], '_blank');
+            const website = websites[randomIndex];
+
+            // Show message before redirect
+            message.textContent = `Taking you to ${website.name}...`;
+
+            // Open the website after a short delay
+            setTimeout(() => {
+                window.open(website.url, '_blank');
+                message.textContent = ''; // clear message
+            }, 800);
         });
     </script>
 </body>
